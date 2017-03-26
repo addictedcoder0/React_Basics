@@ -7,7 +7,7 @@ class App extends Component {
 constructor(props){
         super(props)
         this.state = {
-            message : "hello world!"
+            message : "click me :  "
         }
     }
 
@@ -16,7 +16,7 @@ constructor(props){
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>{this.state.message}</h2>
+          <h2 onClick={() => this.setState({message: this.state.message + '*'})}>{this.state.message}</h2>
         </div>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
