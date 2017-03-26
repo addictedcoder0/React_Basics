@@ -1,0 +1,113 @@
+<html>
+<head>
+    <style>
+        .board{
+            display: flex;
+            width: 600px;
+            height:600px;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+        .square{
+            height: 200px;
+            width: 200px;
+            box-sizing: border-box;
+            border: 5px solid black;
+            font-size: 5em;
+            display: flex;
+            justify-content: center;
+            /*padding-top: 50px;*/
+            align-items: center;
+        }
+        .square:hover{
+            cursor: pointer;
+            background-color: #86d3a4;
+        }
+    </style>
+</head>
+
+<body>
+ 
+   <!-- <div class="board"> 
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+        <div class="square"></div>
+    </div>-->
+    <div class="render-target">
+    
+    </div>
+    
+    <script>
+        var gameState = {
+            PLAYER_ONE_SYMBOL: 'X',
+            PLAYER_TWO_SYMBOL: 'O',
+            currentTurn:'X',
+            board:[
+                "","","","","","","","","",
+            ]
+        }
+        
+        var render = function(state){
+            // put too much of pressure on browser as it has to parse it every time 
+            document.querySelector('.render-target').innerHTML =  "<div class='board'>"+
+                "<div class='square' data-square-id='0'>"+state.board[0]+"</div>" +
+                "<div class='square' data-square-id='1'>"+state.board[1]+"</div>" +
+                "<div class='square' data-square-id='2'>"+state.board[2]+"</div>" +
+                "<div class='square' data-square-id='3'>"+state.board[3]+"</div>" +
+                "<div class='square' data-square-id='4'>"+state.board[4]+"</div>" +
+                "<div class='square' data-square-id='5'>"+state.board[5]+"</div>" +
+                "<div class='square' data-square-id='6'>"+state.board[6]+"</div>" +
+                "<div class='square' data-square-id='7'>"+state.board[7]+"</div>" +
+                "<div class='square' data-square-id='8'>"+state.board[8]+"</div>" +
+            "</div>"    
+            return
+        }
+        
+       /* document.querySelector('.render-target').innerHTML =  render(gameState)
+       */ 
+        //console.log(render(gameState))
+        
+        render(gameState)
+        var board = document.querySelector('.render-target')
+        
+        
+        board.addEventListener('click',function(e){
+            var squareIndex =  parseInt(e.target.dataset['squareId'],10)   
+            console.log(squareIndex)
+            gameState.board[squareIndex] = gameState.currentTurn
+            gameState.currentTurn = gameState.currentTurn === gameState.PLAYER_ONE_SYMBOL ? gameState.PLAYER_TWO_SYMBOL : gameState.PLAYER_ONE_SYMBOL
+            render(gameState)
+            if(checkForWinner())
+                {
+                    alert("somebody won")
+                }
+            
+        })
+        
+       
+        function checkForWinner() {
+            var squares = gameState.board
+            console.log(squares[0])
+            // Wining combinations of tic-tac-toe
+            var winningCombos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
+           return winningCombos.find(function (combo){               if(squares[combo[0]]==squares[combo[1]]&&squares[combo[1]]==squares[combo[2]])
+                {
+                    return squares[combo[0]]
+                }else{
+                    return false
+                }
+        
+        })
+            
+        }
+    </script>
+</body>
+
+</html>
