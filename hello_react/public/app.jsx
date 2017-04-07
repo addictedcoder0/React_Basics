@@ -16,28 +16,42 @@ var GreetingForm =  React.createClass({
 
   onFormSubmit : function (e){
     e.preventDefault();// this is to stop the default behavior of browsers of refreshing the page on form submit
-    var namefrombox = this.refs.name.value
-    if(namefrombox.length > 0){
-      this.refs.name.value=''
-      this.props.onNewName(namefrombox);
+    var nameFromBox = this.refs.name.value
+    var messageFromBox = this.refs.message.value
+    var lengthOfName = nameFromBox.length
+    var lengthOfMessage = messageFromBox.length
+
+    //text area need to be cleared in all conditions
+    this.refs.name.value=''
+    this.refs.message.value=''
+
+    if(lengthOfName > 0 ){
+
+      this.props.onNewName(nameFromBox);
+    }
+    if(lengthOfMessage >0){
+
+      this.props.onNewMessage(messageFromBox);
     }
   },
 
   render : function(){
     return(
       <form onSubmit={this.onFormSubmit}>
-        <input type="text" ref="name" />
-        <button>setName</button>
+        <label>Name</label><input type="text" ref="name" /><br></br>
+        <label>Message</label><input type="text" ref="message" />
+        <button>submit</button>
       </form>
     );
   }
 });
 
 var Greeting =  React.createClass({
+  // in this state we are no longer using Default Props
     getDefaultProps : function(){
       return {
         name: 'React' ,
-        message : 'if it is not Better then it is not the End'
+        message : 'Stay Hungry , Stay Foolish'
       };
     },
 
@@ -45,7 +59,8 @@ var Greeting =  React.createClass({
     // predefined react function
     getInitialState : function(){
       return {
-        name : 'Rudra'
+        name : 'Rudra',
+        message : 'Stay Hungry , Stay Foolish'
       };
     },
 
@@ -55,15 +70,20 @@ var Greeting =  React.createClass({
       });
     },
 
+    handleNewMessage : function(message){
+      this.setState({
+        message:message
+      });
+    },
 
 // Nesting Conponents : [GreetingRenderer,GreetingForm]
     render :function(){
       var name = this.state.name;
-      var message = this.props.message;
+      var message = this.state.message;
       return (
         <div>
           <GreetingMessage name={name} message={message}/>
-          <GreetingForm onNewName={this.handleNewName} />
+          <GreetingForm onNewName={this.handleNewName} onNewMessage={this.handleNewMessage} />
 
       </div>
       )
