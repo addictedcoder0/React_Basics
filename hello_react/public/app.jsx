@@ -1,20 +1,35 @@
 
-var GreetingRenderer =  React.createClass({
+var GreetingMessage =  React.createClass({
   render : function(){
+    var name = this.props.name
+    var msg = this.props.message
       return(
-        <h1>someblock</h1>
-      )
+        <div>
+        <h1>Hello {name}</h1>
+        <h3>{msg +' !!!'}</h3>
+        </div>
+      );
   }
 });
 // static component : to render the Form
 var GreetingForm =  React.createClass({
+
+  onFormSubmit : function (e){
+    e.preventDefault();// this is to stop the default behavior of browsers of refreshing the page on form submit
+    var namefrombox = this.refs.name.value
+    if(namefrombox.length > 0){
+      this.refs.name.value=''
+      this.props.onNewName(namefrombox);
+    }
+  },
+
   render : function(){
     return(
-      <form>
+      <form onSubmit={this.onFormSubmit}>
         <input type="text" ref="name" />
         <button>setName</button>
       </form>
-    )
+    );
   }
 });
 
@@ -22,34 +37,33 @@ var Greeting =  React.createClass({
     getDefaultProps : function(){
       return {
         name: 'React' ,
-        message : 'Message from Default section '
+        message : 'if it is not Better then it is not the End'
       };
     },
 
-    onButtonClick : function (e){
-      e.preventDefault();
-      var namefrombox = this.refs.name.value;
-      this.setState({
-        name:namefrombox
-      });
-    },
+
     // predefined react function
     getInitialState : function(){
       return {
         name : 'Rudra'
       };
     },
-// Nesting Conponents : [GreetingRenderer,GreetingForm] 
+
+    handleNewName : function(name){
+      this.setState({
+        name:name
+      });
+    },
+
+
+// Nesting Conponents : [GreetingRenderer,GreetingForm]
     render :function(){
       var name = this.state.name;
       var message = this.props.message;
       return (
         <div>
-          <h1>Hello {name}</h1>
-          <h3>{message +' !!!'}</h3>
-
-          <GreetingRenderer/>
-          <GreetingForm />
+          <GreetingMessage name={name} message={message}/>
+          <GreetingForm onNewName={this.handleNewName} />
 
       </div>
       )
