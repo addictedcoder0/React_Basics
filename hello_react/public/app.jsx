@@ -1,3 +1,23 @@
+
+var GreetingRenderer =  React.createClass({
+  render : function(){
+      return(
+        <h1>someblock</h1>
+      )
+  }
+});
+// static component : to render the Form
+var GreetingForm =  React.createClass({
+  render : function(){
+    return(
+      <form>
+        <input type="text" ref="name" />
+        <button>setName</button>
+      </form>
+    )
+  }
+});
+
 var Greeting =  React.createClass({
     getDefaultProps : function(){
       return {
@@ -19,7 +39,7 @@ var Greeting =  React.createClass({
         name : 'Rudra'
       };
     },
-
+// Nesting Conponents : [GreetingRenderer,GreetingForm] 
     render :function(){
       var name = this.state.name;
       var message = this.props.message;
@@ -27,14 +47,15 @@ var Greeting =  React.createClass({
         <div>
           <h1>Hello {name}</h1>
           <h3>{message +' !!!'}</h3>
-          <form onSubmit={this.onButtonClick}>
-            <input type="text" ref="name" />
-            <button>setName</button>
-          </form>
-        </div>
+
+          <GreetingRenderer/>
+          <GreetingForm />
+
+      </div>
       )
     }
 });
+
 
 var author_name = 'Rudra'
 // rendering with property
