@@ -8,12 +8,20 @@ var Greeting =  React.createClass({
 
     onButtonClick : function (e){
       e.preventDefault();
-      var name = this.refs.name.value
-      alert(name)
+      var namefrombox = this.refs.name.value;
+      this.setState({
+        name:namefrombox
+      });
+    },
+    // predefined react function
+    getInitialState : function(){
+      return {
+        name : 'Rudra'
+      };
     },
 
     render :function(){
-      var name = this.props.name;
+      var name = this.state.name;
       var message = this.props.message;
       return (
         <div>
