@@ -1,3 +1,7 @@
+var React = require('react');
+var ReactDOM =  require('react-dom');
+
+
 
 var GreetingMessage =  React.createClass({
   render : function(){
@@ -46,7 +50,7 @@ var GreetingForm =  React.createClass({
   }
 });
 
-var Greeting =  React.createClass({
+var Greeter =  React.createClass({
   // in this state we are no longer using Default Props
     getDefaultProps : function(){
       return {
@@ -94,7 +98,7 @@ var Greeting =  React.createClass({
 var author_name = 'Rudra'
 // rendering with property
 ReactDOM.render(
-  <Greeting name={author_name} message="Message passed as an attribute "/>,document.getElementById('app')
+  <Greeter name={author_name} message="Message passed as an attribute "/>,document.getElementById('app')
 );
 
 //rendering without property
