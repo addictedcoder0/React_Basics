@@ -46,8 +46,22 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
+
+	//inorder to provide the support from the ES6 , we need to install babale - stage0 preset and add into webpackconfig
+	var objOne = {
+	  name: 'Rudra',
+	  location: 'india'
+	};
+
+	var objTwo = _extends({
+	  age: 25
+	}, objOne);
+
+	console.log(objTwo);
 
 	// if we run "webpack -w" then it will listen the changes done and immediately bundle the changes ,
 	//so just on a refresh we can see the changes reflected in the browser.
