@@ -48,134 +48,10 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-
-	var GreetingMessage = React.createClass({
-	  displayName: 'GreetingMessage',
-
-	  render: function render() {
-	    var name = this.props.name;
-	    var msg = this.props.message;
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'h1',
-	        null,
-	        'Hello ',
-	        name
-	      ),
-	      React.createElement(
-	        'h3',
-	        null,
-	        msg + ' !!!'
-	      )
-	    );
-	  }
-	});
-	// static component : to render the Form
-	var GreetingForm = React.createClass({
-	  displayName: 'GreetingForm',
-
-
-	  onFormSubmit: function onFormSubmit(e) {
-	    e.preventDefault(); // this is to stop the default behavior of browsers of refreshing the page on form submit
-	    var nameFromBox = this.refs.name.value;
-	    var messageFromBox = this.refs.message.value;
-	    var lengthOfName = nameFromBox.length;
-	    var lengthOfMessage = messageFromBox.length;
-
-	    //text area need to be cleared in all conditions
-	    this.refs.name.value = '';
-	    this.refs.message.value = '';
-
-	    if (lengthOfName > 0) {
-
-	      this.props.onNewName(nameFromBox);
-	    }
-	    if (lengthOfMessage > 0) {
-
-	      this.props.onNewMessage(messageFromBox);
-	    }
-	  },
-
-	  render: function render() {
-	    return React.createElement(
-	      'form',
-	      { onSubmit: this.onFormSubmit },
-	      React.createElement(
-	        'label',
-	        null,
-	        'Name'
-	      ),
-	      React.createElement('input', { type: 'text', ref: 'name' }),
-	      React.createElement('br', null),
-	      React.createElement(
-	        'label',
-	        null,
-	        'Message'
-	      ),
-	      React.createElement('input', { type: 'text', ref: 'message' }),
-	      React.createElement(
-	        'button',
-	        null,
-	        'submit'
-	      )
-	    );
-	  }
-	});
-
-	var Greeter = React.createClass({
-	  displayName: 'Greeter',
-
-	  // in this state we are no longer using Default Props
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      name: 'React',
-	      message: 'Stay Hungry , Stay Foolish'
-	    };
-	  },
-
-	  // predefined react function
-	  getInitialState: function getInitialState() {
-	    return {
-	      name: 'Rudra',
-	      message: 'Stay Hungry , Stay Foolish'
-	    };
-	  },
-
-	  handleNewName: function handleNewName(name) {
-	    this.setState({
-	      name: name
-	    });
-	  },
-
-	  handleNewMessage: function handleNewMessage(message) {
-	    this.setState({
-	      message: message
-	    });
-	  },
-
-	  // Nesting Conponents : [GreetingRenderer,GreetingForm]
-	  render: function render() {
-	    var name = this.state.name;
-	    var message = this.state.message;
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(GreetingMessage, { name: name, message: message }),
-	      React.createElement(GreetingForm, { onNewName: this.handleNewName, onNewMessage: this.handleNewMessage })
-	    );
-	  }
-	});
+	var Greeter = __webpack_require__(183);
 
 	var author_name = 'Rudra';
-	// rendering with property
-	ReactDOM.render(React.createElement(Greeter, { name: author_name, message: 'Message passed as an attribute ' }), document.getElementById('app'));
-
-	//rendering without property
-	// ReactDOM.render(
-	//   <Greeting />,document.getElementById('app')
-	// );
+	ReactDOM.render(React.createElement(Greeter, { name: author_name }), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -21913,6 +21789,157 @@
 
 	module.exports = ReactDOMInvalidARIAHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var GreeterForm = __webpack_require__(184);
+	var GreeterMessage = __webpack_require__(185);
+
+	var Greeter = React.createClass({
+	  displayName: 'Greeter',
+
+	  // in this state we are no longer using Default Props
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      name: 'React',
+	      message: 'Stay Hungry , Stay Foolish'
+	    };
+	  },
+	  // predefined react function
+	  getInitialState: function getInitialState() {
+	    return {
+	      name: 'Rudra',
+	      message: 'Stay Hungry , Stay Foolish'
+	    };
+	  },
+	  handleNewName: function handleNewName(name) {
+	    this.setState({
+	      name: name
+	    });
+	  },
+	  handleNewMessage: function handleNewMessage(message) {
+	    this.setState({
+	      message: message
+	    });
+	  },
+
+	  // Nesting Conponents : [GreetingRenderer,GreetingForm]
+	  render: function render() {
+	    var name = this.state.name;
+	    var message = this.state.message;
+	    console.log("render : Greeter");
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(GreeterMessage, { name: name, message: message }),
+	      React.createElement(GreeterForm, { onNewName: this.handleNewName, onNewMessage: this.handleNewMessage })
+	    );
+	  }
+	});
+
+	module.exports = Greeter;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var GreeterForm = React.createClass({
+	  displayName: 'GreeterForm',
+
+
+	  onFormSubmit: function onFormSubmit(e) {
+	    e.preventDefault(); // this is to stop the default behavior of browsers of refreshing the page on form submit
+	    var nameFromBox = this.refs.name.value;
+	    var messageFromBox = this.refs.message.value;
+	    var lengthOfName = nameFromBox.length;
+	    var lengthOfMessage = messageFromBox.length;
+
+	    //text area need to be cleared in all conditions
+	    this.refs.name.value = '';
+	    this.refs.message.value = '';
+
+	    if (lengthOfName > 0) {
+
+	      this.props.onNewName(nameFromBox);
+	    }
+	    if (lengthOfMessage > 0) {
+
+	      this.props.onNewMessage(messageFromBox);
+	    }
+	  },
+
+	  render: function render() {
+	    console.log("render : GreeterForm");
+	    return React.createElement(
+	      'form',
+	      { onSubmit: this.onFormSubmit },
+	      React.createElement(
+	        'label',
+	        null,
+	        'Name'
+	      ),
+	      React.createElement('input', { type: 'text', ref: 'name' }),
+	      React.createElement('br', null),
+	      React.createElement(
+	        'label',
+	        null,
+	        'Message'
+	      ),
+	      React.createElement('input', { type: 'text', ref: 'message' }),
+	      React.createElement(
+	        'button',
+	        null,
+	        'submit'
+	      )
+	    );
+	  }
+	});
+	// it's kind of return statement
+	module.exports = GreeterForm;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var GreeterMessage = React.createClass({
+	  displayName: 'GreeterMessage',
+
+	  render: function render() {
+	    console.log("render : GreeterMessage");
+	    var name = this.props.name;
+	    var msg = this.props.message;
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Hello ',
+	        name
+	      ),
+	      React.createElement(
+	        'h3',
+	        null,
+	        msg + ' !!!'
+	      )
+	    );
+	  }
+	});
+
+	module.exports = GreeterMessage;
 
 /***/ }
 /******/ ]);
